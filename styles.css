@@ -1,0 +1,9 @@
+canvas {
+  width: 800px;
+  height: 800px;
+  border: 1px solid black;
+}
+body {
+  display: flex;
+  justify-content: center;
+}
