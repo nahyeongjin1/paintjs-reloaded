@@ -3,13 +3,25 @@ const context = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
-context.rect(50, 50, 100, 100);
-context.rect(150, 150, 100, 100);
-context.rect(250, 250, 100, 100);
-context.fill();
+context.lineWidth = 2;
 
-context.beginPath();
-context.rect(350, 350, 100, 100);
-context.rect(450, 450, 100, 100);
-context.fillStyle = "red";
-context.fill();
+const colors = [
+  "#fc5c65",
+  "#fd9644",
+  "#fed330",
+  "#26de81",
+  "#2bcbba",
+  "#45aaf2",
+  "#4b7bec",
+];
+
+function onClick(event) {
+  context.beginPath();
+  context.moveTo(0, 0);
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  context.strokeStyle = color;
+  context.lineTo(event.offsetX, event.offsetY);
+  context.stroke();
+}
+
+canvas.addEventListener("click", onClick);
