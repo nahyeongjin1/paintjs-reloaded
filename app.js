@@ -1,27 +1,55 @@
+const colorOptions = Array.from(
+  document.getElementsByClassName("color-option")
+);
+const color = document.getElementById("color");
+const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
+context.lineWidth = lineWidth.value;
+let isPainting = false;
 
-context.lineWidth = 2;
-
-const colors = [
-  "#fc5c65",
-  "#fd9644",
-  "#fed330",
-  "#26de81",
-  "#2bcbba",
-  "#45aaf2",
-  "#4b7bec",
-];
-
-function onClick(event) {
-  context.beginPath();
-  context.moveTo(0, 0);
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  context.strokeStyle = color;
-  context.lineTo(event.offsetX, event.offsetY);
-  context.stroke();
+function onMouseMove(event) {
+  if (isPainting) {
+    context.lineTo(event.offsetX, event.offsetY);
+    context.stroke();
+    return;
+  }
+  context.moveTo(event.offsetX, event.offsetY);
 }
 
-canvas.addEventListener("click", onClick);
+function startDrawing() {
+  isPainting = true;
+}
+
+function cancelDrawing() {
+  isPainting = false;
+  context.beginPath();
+}
+
+function onLineWidthChange(event) {
+  context.lineWidth = event.target.value;
+}
+
+function onColorChange(event) {
+  context.strokeStyle = event.target.value;
+  context.fillStyle = event.target.value;
+}
+
+function onColorClick(event) {
+  const colorValue = event.target.dataset.color;
+  context.strokeStyle = colorValue;
+  context.fillStyle = colorValue;
+  color.value = colorValue;
+}
+
+canvas.addEventListener("mousemove", onMouseMove);
+canvas.addEventListener("mousedown", startDrawing);
+canvas.addEventListener("mouseup", cancelDrawing);
+canvas.addEventListener("mouseleave", cancelDrawing);
+
+lineWidth.addEventListener("change", onLineWidthChange);
+color.addEventListener("change", onColorChange);
+
+colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
