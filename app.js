@@ -1,3 +1,4 @@
+const fileInput = document.getElementById("file");
 const eraserButton = document.getElementById("eraser-button");
 const destroyButton = document.getElementById("destroy-button");
 const modeButton = document.getElementById("mode-button");
@@ -83,6 +84,17 @@ function onEraserClick() {
   }
 }
 
+function onFileChange(event) {
+  const file = event.target.files[0];
+  const url = URL.createObjectURL(file);
+  const image = new Image();
+  image.src = url;
+  image.onload = function () {
+    context.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    fileInput.value = null;
+  };
+}
+
 canvas.addEventListener("mousemove", onMouseMove);
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mouseup", cancelDrawing);
@@ -97,3 +109,4 @@ colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 modeButton.addEventListener("click", onModeClick);
 destroyButton.addEventListener("click", onDestoryClick);
 eraserButton.addEventListener("click", onEraserClick);
+fileInput.addEventListener("change", onFileChange);
