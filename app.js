@@ -1,3 +1,4 @@
+const eraserButton = document.getElementById("eraser-button");
 const destroyButton = document.getElementById("destroy-button");
 const modeButton = document.getElementById("mode-button");
 const colorOptions = Array.from(
@@ -74,6 +75,14 @@ function onDestoryClick() {
   color.value = basicBackground;
 }
 
+function onEraserClick() {
+  context.strokeStyle = "white";
+  if (isFilling) {
+    isFilling = false;
+    modeButton.innerText = "Fill";
+  }
+}
+
 canvas.addEventListener("mousemove", onMouseMove);
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mouseup", cancelDrawing);
@@ -87,3 +96,4 @@ colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 
 modeButton.addEventListener("click", onModeClick);
 destroyButton.addEventListener("click", onDestoryClick);
+eraserButton.addEventListener("click", onEraserClick);
