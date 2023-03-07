@@ -17,6 +17,7 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 context.lineWidth = lineWidth.value;
+context.lineCap = "round";
 let isPainting = false;
 let isFilling = false;
 
