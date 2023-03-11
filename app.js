@@ -65,10 +65,10 @@ function onColorClick(event) {
 function onModeClick() {
   if (isFilling) {
     isFilling = false;
-    modeButton.innerText = "Fill";
+    modeButton.innerText = "🩸 Fill";
   } else {
     isFilling = true;
-    modeButton.innerText = "Draw";
+    modeButton.innerText = "✏️ Draw";
   }
 }
 
@@ -83,7 +83,7 @@ function onEraserClick() {
   context.strokeStyle = "white";
   if (isFilling) {
     isFilling = false;
-    modeButton.innerText = "Fill";
+    modeButton.innerText = "🩸 Fill";
   }
 }
 
